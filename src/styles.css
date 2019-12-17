@@ -1,0 +1,81 @@
+/* add css styles here (optional) */
+body{margin:0; padding:0 }
+*{font-family:arial; box-sizing: border-box; }
+.as-slider-container{ position:relative; background: #efefef;}
+.as-slider {
+	position:relative;
+  display: flex;
+  align-items: flex-end;
+  background: #ccc;
+}
+.as-sliderImage{display: block;
+    height: 100%;
+    width: 100%;
+}
+.as-sliderImage img{width:100%; display: block; margin: 0;}
+ul.slider-items {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  width: 100%;
+	height:100%;
+	margin:0;
+  position: absolute;
+  overflow: hidden;
+}
+.item {
+  flex: 1 1;
+  background:rgba(0, 0, 0, 0.3);
+	position:relative;
+	margin:0 1px;
+	display:none;
+  box-sizing: border-box;
+  padding: 5px 5px 25px;
+  cursor: default;
+}
+li.item.active{color:#fff}
+.hide{display:none;}
+.showitem{ display: flex; align-items: flex-end; }
+
+.as-slider-navlink {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  z-index: 0;
+	display: flex;
+  justify-content: space-between;
+}
+.as-slider-navlink .link{background: #4a4a4a66;  border: 0; color: #fff; padding: 5px;}
+
+.item-data{
+	overflow:hidden;
+	color:#fff;
+	width:calc(100% - 20px);
+	display:block;
+  box-sizing: border-box;
+  cursor: default;
+  margin: 0 auto;
+  transition: all 1.5s ease;
+  transform: translateY(20%);
+}
+.item-data h4{
+	margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+}
+.item-data p {
+  margin-bottom: 0;
+  display: none;
+  max-height:270px;
+  overflow: hidden;
+  text-overflow: ellipsis;  
+}
+.item-data:hover, .active .item-data{transform: translateY(0);}
+.item-data:hover p, .active .item-data p{display:block;}
+
+@media screen and (max-width:550px)
+{
+  .item-data p {max-height: 54px;}
+}
