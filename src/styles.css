@@ -60,9 +60,6 @@ li.item.active{color:#fff}
 }
 .item-data h4{
 	margin: 0;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
   width: 100%;
 }
 .item-data p {
