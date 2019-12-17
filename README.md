@@ -41,6 +41,7 @@ const option = {responsive:{lg:5, md:4, sm:2}}
 ```
 
 ## Example
+[Demo](https://ajit16.github.io/as-slider-exp/)
 ![alt text](https://i.ibb.co/3fJCJfY/as-slider.jpg)
 
 
