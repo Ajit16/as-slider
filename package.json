@@ -1,8 +1,13 @@
 {
   "name": "as-slider",
-  "version": "0.0.2",
-  "description": "",
-  "author": "Ajit16",
+  "version": "0.0.1",
+  "description": "as-slider reactjs module",
+  "keywords": [
+    "as-slider",
+    "as-slider-reactjs"
+  ],
+  "homepage":"https://ajit16.github.io/as-slider-exp/",
+  "author": "Ajit Singh",
   "license": "MIT",
   "repository": "git@github.com:Ajit16/as-slider.git",
   "main": "dist/index.js",
