@@ -15,8 +15,8 @@ export default class AsSlider extends Component {
   state = {items:[], SliderImage:[], timer:0}
 
   componentDidMount(){
-    let items = document.querySelectorAll(".slider-items li");
-    let SliderImage = document.querySelectorAll(".as-sliderImage img");
+	let items = document.querySelectorAll(`.${this.props.wrapClassName} .slider-items li`);
+	let SliderImage = document.querySelectorAll(`.${this.props.wrapClassName} .as-sliderImage img`);
     this.setState({items:items, SliderImage:SliderImage })
     window.addEventListener('resize', this.setNoOfSlide);
     document.getElementsByClassName("nextSlide")[0].addEventListener("click", this.nextSlide);
@@ -40,7 +40,7 @@ export default class AsSlider extends Component {
   }
 
   setNoOfSlide=()=>{
-    let size = this.props.option;
+    let size = this.props.option || {responsive:{}};
     if(window.innerWidth > 1200)
 			collection = size.responsive.lg || 5;
 		if(window.innerWidth > 992 && window.innerWidth < 1200)
@@ -133,16 +133,16 @@ export default class AsSlider extends Component {
 	}  
 
   render() {
-    const { dataSet, sliderClass } = this.props
+    const { dataSet, wrapClassName } = this.props
     //console.log(this.props)
     return (
       <Fragment>
-        <div className={" as-slider-container"}>
+        <div className={wrapClassName+" as-slider-container"}>
           <div className="as-slider">
             <div className="as-sliderImage">
               <img src="" />
             </div>
-            <ul className="slider-items" id="SliderItem">
+            <ul className="slider-items">
               {dataSet.map((item,index)=>
                 <li className="item" data-index={index+1} data-url={item.imageUrl} key={index}>
                   <div className="item-data">

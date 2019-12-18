@@ -72,6 +72,11 @@ li.item.active{color:#fff}
 .item-data:hover, .active .item-data{transform: translateY(0);}
 .item-data:hover p, .active .item-data p{display:block;}
 
+@media screen and (max-width:992px)
+{
+  .item-data p {max-height: 180px;}
+}
+
 @media screen and (max-width:550px)
 {
   .item-data p {max-height: 54px;}
