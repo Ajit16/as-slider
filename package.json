@@ -3,7 +3,10 @@
   "version": "0.0.2",
   "description": "",
   "author": "Ajit16",
-  "keywords": ["as-slider","react as-slider"],
+  "keywords": [
+    "as-slider",
+    "react as-slider"
+  ],
   "license": "MIT",
   "repository": "git@github.com:Ajit16/as-slider.git",
   "main": "dist/index.js",
@@ -60,6 +63,7 @@
     "dist"
   ],
   "dependencies": {
-    "react-router": "^5.1.2"
+    "react-router": "^5.1.2",
+    "react-router-dom": "^5.1.2"
   }
 }
