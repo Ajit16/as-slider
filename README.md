@@ -14,11 +14,13 @@ npm install --save as-slider
 
 ```jsx
 import React, { Component } from 'react'
-import AsSlider from 'as-slider'
+import { Slider, SliderSm } from 'as-slider';
 class Example extends Component {
   render () {    
     return (
-      <AsSlider dataSet={data} option={option} interval={4} wrapClassName={"customSlider"} />
+      <Slider dataSet={data} option={option} interval={4} wrapClassName={"newClass"} />;
+      
+      <SliderSm dataSet={data} interval={4} charLimit={100} wrapClassName={"customClass"} />;
     )
   }
 }
@@ -27,7 +29,7 @@ class Example extends Component {
 
 ```jsx
 const data=[
-  {title:'title', description:'description', imageUrl:'image url',},
+  {title:'title', description:'description', imageUrl:'image url', url:'link_url'},
   {title:'title', description:'description', imageUrl:'image url',}
   ...
 ]
@@ -37,7 +39,10 @@ const data=[
 Options are set as responsive properties, they help you customize the no of slide show on screen.
 
 ```jsx
-const option = {responsive:{lg:5, md:4, sm:2}}
+const option = {
+    responsive:{lg:5, md:4, sm:2},
+    charLimit:100
+}
 ```
 ## Default values/options
 
@@ -48,6 +53,7 @@ const option = {responsive:{lg:5, md:4, sm:2}}
 | sm  | You can set number of slide show on screen, as per screen size.  | object  |  2 |
 | interval |  Set slide interval time | number  | 5  |
 | wrapClassName  | use "wrapClassName" class, if you want to show multiple "as-slides" on same page.  | string  | ||
+| charLimit  | used for add description char limit to show  | number  | 120 ||
 
 
 ## Example
