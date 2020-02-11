@@ -1,7 +1,7 @@
 {
   "name": "as-slider",
-  "version": "0.0.2",
-  "description": "",
+  "version": "0.0.4",
+  "description": "As-Slider are providing you beautiful UI slider framework with easy to use and update custom UI style.",
   "author": "Ajit16",
   "keywords": [
     "as-slider",
@@ -63,7 +63,6 @@
     "dist"
   ],
   "dependencies": {
-    "react-router": "^5.1.2",
-    "react-router-dom": "^5.1.2"
+    "react-router": "^5.1.2"
   }
 }
