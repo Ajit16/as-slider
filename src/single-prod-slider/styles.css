@@ -1,0 +1,178 @@
+.as-single-prod-slider {
+  width: 100%;
+  max-width: 350px;
+  display: block;
+  /* background-color: rgb(129, 158, 148); */
+  font-family: Arial, Helvetica, sans-serif;
+}
+.as-single-prod-slider ul {
+  padding: 0;
+}
+.as-single-prod-slider img {
+  width: 100%;
+  height: auto;
+}
+.as-single-prod-slider .slider-item {
+  width: 100%;
+  display: none;
+  filter: drop-shadow(0 5px 10px #44444494);
+  border-radius: 26px 26px 0 0;
+  padding: 20px;
+  box-sizing: border-box;
+  position: absolute;
+  color: #fff;
+  background-color: #ff9800;
+}
+.as-single-prod-slider .slider-item.active {
+  display: block;
+  position: relative;
+}
+
+.slide-image {
+  position: relative;
+  margin: 1rem auto;
+  text-align: center;
+  filter: drop-shadow(0px 18px 10px #0000008a);
+}
+
+.description {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.brand-logo {
+  max-width: 82px;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: 2;
+  max-height: 49px;
+  padding-right: 14px;
+  box-sizing: border-box;
+}
+.upper-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.upper-section .price {
+  font-size: 2.2rem;
+}
+.upper-section .price del {
+  font-size: 1rem;
+  opacity: 0.7;
+}
+.upper-section .title {
+  font-size: 1.15rem;
+}
+.description p {
+  font-size: 0.8rem;
+}
+.description p a {
+  text-decoration: none;
+  color: inherit;
+  opacity: 0.7;
+}
+.description p a:hover {
+  opacity: 1;
+}
+.brand-logo p {
+  color: inherit;
+  opacity: 0.5;
+  font-weight: bold;
+  font-style: italic;
+  font-size: 1rem;
+}
+.shape {
+  clip-path: polygon(
+    100% 0,
+    0 0,
+    0.2% 23.7%,
+    0.5% 33.1%,
+    1.5% 42.5%,
+    2.5% 47%,
+    3.5% 51.5%,
+    4.5% 54%,
+    5.5% 56%,
+    6.5% 57.1%,
+    7.5% 57.8%,
+    8.5% 57.7%,
+    9.5% 57.5%,
+    10.5% 56.7%,
+    11.5% 54.9%,
+    12.5% 53.3%,
+    15.5% 46.7%,
+    18.5% 37.8%,
+    23.5% 25.9%,
+    26% 21.6%,
+    29% 16.9%,
+    31.5% 14.5%,
+    33.5% 12.6%,
+    35% 11.8%,
+    38% 10.5%,
+    42% 11%,
+    45% 13.2%,
+    48% 17.3%,
+    52% 26%,
+    58% 38%,
+    62% 46%,
+    65% 51%,
+    68.5% 53.7%,
+    71% 55.2%,
+    73% 56%,
+    76% 57.2%,
+    79% 57.8%,
+    82% 57.8%,
+    85% 59.3%,
+    90% 63.4%,
+    92% 66.6%,
+    94% 70.5%,
+    96% 76.5%,
+    98% 86.4%,
+    100% 100%
+  );
+  position: absolute;
+  top: calc(100% - 1px);
+  left: 0;
+  width: 100%;
+  height: 91px;
+  background-color: inherit;
+}
+.slide-no {
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  top: 100%;
+  z-index: 1;
+  border: 2px inset;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  box-sizing: border-box;
+  left: 11px;
+  font-size: 12px;
+}
+
+.dots-points {
+  display: flex;
+  padding: 0;
+  justify-content: center;
+  margin-top: 70px;
+}
+
+.dots-points li {
+  width: 15px;
+  height: 6px;
+  background: #000;
+  margin: 3px;
+  list-style: none;
+  border-radius: 15px;
+  overflow: hidden;
+  opacity: 0.4;
+  cursor: pointer;
+}
+.dots-points li.active {
+  width: 20px;
+  opacity: 1;
+}

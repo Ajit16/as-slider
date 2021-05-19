@@ -1,157 +1,202 @@
-import React, { Component, Fragment } from 'react'
+import React, {useEffect, useState, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import './styles.css'
-let start, end, collection = 4;
 
-export default class Slider extends Component {
-	static propTypes = {
-		dataSet: PropTypes.array.isRequired,
-		option: PropTypes.object,
-		interval: PropTypes.number,
-	}
+const Slider = ({ collection, start, end, dataSet, option, interval, charLimit, wrapClassName }) => {
+  const [items, setItem] = useState([])
+  const [sliderImages, setSliderImages] = useState([])
+  let timeInterval = 0
 
-	state = { items: [], SliderImage: [], timer: 0 }
+  useEffect(() => {
+    if (dataSet.length > 0) {
+      let itemsVal = document.querySelectorAll(`${wrapClassName ? '.' + wrapClassName : ''} .slider-items li`)
+      let SliderImage = document.querySelectorAll(`${wrapClassName ? '.' + wrapClassName : ''} .as-sliderImage img`)
+      setItem(itemsVal)
+      setSliderImages(SliderImage)
+    }
+  }, [dataSet])
 
-	componentDidMount() {
-		let items = document.querySelectorAll(`.${this.props.wrapClassName} .slider-items li`);
-		let SliderImage = document.querySelectorAll(`.${this.props.wrapClassName} .as-sliderImage img`);
-		this.setState({ items: items, SliderImage: SliderImage })
-		window.addEventListener('resize', this.setNoOfSlide);
-		document.getElementsByClassName("nextSlide")[0].addEventListener("click", this.nextSlide);
-		document.getElementsByClassName("prevSlide")[0].addEventListener("click", this.prevSlide);
-		setTimeout(() => {
-			this.setNoOfSlide();
-			for (let i = 0; i < this.state.items.length; i++) {
-				this.state.items[i].addEventListener("mouseover", this.hoverFunction);
-			}
-		}, 100)
-		setInterval(() => { this.TimerInterval() }, 1000)
-	}
+  const TimerInterval = (val) => {
+    if (timeInterval === interval) {
+      timeInterval = 0
+      nextSlide()
+    } else timeInterval++
+  }
 
-	TimerInterval = () => {
-		let time = this.state.timer++;
-		if (this.state.timer === (this.props.interval || 5)) {
-			this.setState({ timer: 0 })
-			this.nextSlide();
-		}
-	}
+  useEffect(() => {
+    if (items.length > 0 && sliderImages.length > 0) {
+      window.addEventListener('resize', setNoOfSlide())
+      document.getElementsByClassName('nextSlide')[0].addEventListener('click', nextSlide)
+      document.getElementsByClassName('prevSlide')[0].addEventListener('click', prevSlide)
+      for (let i = 0; i < items.length; i++) {
+        items[i].addEventListener('mouseover', hoverFunction)
+      }
+      setInterval(() => TimerInterval(), 1000)
+    }
+    return () => {
+      window.removeEventListener('resize', setNoOfSlide())
+      for (let i = 0; i < items.length; i++) {
+        items[i].removeEventListener('mouseover', hoverFunction)
+      }
+      document.getElementsByClassName('nextSlide')[0].removeEventListener('click', nextSlide)
+      document.getElementsByClassName('prevSlide')[0].removeEventListener('click', prevSlide)
+    }
+  }, [items, sliderImages])
 
-	setNoOfSlide = () => {
-		let size = this.props.option || { responsive: {} };
-		if (window.innerWidth > 1200)
-			collection = size.responsive.lg || 5;
-		if (window.innerWidth > 992 && window.innerWidth < 1200)
-			collection = size.responsive.md || 4;
-		if (window.innerWidth > 576 && window.innerWidth < 992)
-			collection = size.responsive.sm || 2;
-		if (window.innerWidth < 576)
-			collection = 1;
-		start = 0;
-		end = collection;
-		for (let i = 0; i < this.state.items.length; i++) {
-			this.state.items[i].classList.remove("active")
-		}
-		this.state.items[0].classList.add("active");
-		this.state.SliderImage[0].setAttribute("src", this.state.items[this.state.items.length - 1].dataset.url)
-		this.hideShowItems()
-	}
+  const setNoOfSlide = () => {
+    if (window.innerWidth > 1200) { collection = option.responsive.lg }
+    if (window.innerWidth > 992 && window.innerWidth < 1200) { collection = option.responsive.md }
+    if (window.innerWidth > 576 && window.innerWidth < 992) { collection = option.responsive.sm }
+    if (window.innerWidth < 576) { collection = 1 }
 
-	nextSlide = () => {
-		let activeClass = document.querySelectorAll('.item.active');
-		let indexVal = parseInt(activeClass[0].dataset.index) - 1;
-		this.state.items[indexVal].classList.remove("active");
-		if (indexVal === this.state.items.length - 1) {
-			this.state.items[0].classList.add("active")
-			this.state.SliderImage[0].setAttribute("src", this.state.items[0].dataset.url)
-		}
-		else {
-			this.state.items[indexVal + 1].classList.add("active");
-			this.state.SliderImage[0].setAttribute("src", this.state.items[indexVal + 1].dataset.url)
-		}
-		this.setState({ timer: 0 })
-		this.hideShowItems()
-	}
+    start = 0
+    end = collection
+    if (items.length > 0) {
+      for (let i = 0; i < items.length; i++) {
+        items[i].classList.remove('active')
+      }
+      items[0].classList.add('active')
+    }
+    if (sliderImages.length > 0) {
+      sliderImages[0].setAttribute('src', items[items.length - 1].dataset.url)
+    }
 
-	prevSlide = () => {
-		let activeClass = document.querySelectorAll('.item.active');
-		let indexVal = parseInt(activeClass[0].dataset.index) - 1
-		this.state.items[indexVal].classList.remove("active")
-		if (indexVal === 0) {
-			this.state.items[this.state.items.length - 1].classList.add("active")
-			this.state.SliderImage[0].setAttribute("src", this.state.items[this.state.items.length - 1].dataset.url)
-		}
-		else {
-			this.state.items[indexVal - 1].classList.add("active");
-			this.state.SliderImage[0].setAttribute("src", this.state.items[indexVal - 1].dataset.url)
-		}
-		this.setState({ timer: 0 })
-		this.hideShowItems()
-	}
+    hideShowItems()
+  }
 
-	hoverFunction = (e) => {
-		if (e.target && e.target.matches("li.item")) {
-			this.state.SliderImage[0].setAttribute("src", e.target.dataset.url)
-			for (let i = 0; i < this.state.items.length; i++) {
-				this.state.items[i].classList.remove("active")
-			}
-			e.target.classList.add("active")
-			this.setState({ timer: 0 })
-		}
-	}
+  const nextSlide = () => {
+    let activeClass = document.querySelectorAll(
+      `${wrapClassName ? '.' + wrapClassName : ''} .item.active`
+    )
+    if (activeClass.length > 0) {
+      let indexVal = parseInt(activeClass[0].dataset.index - 1)
+      items[indexVal].classList.remove('active')
+      if (indexVal === items.length - 1) {
+        items[0].classList.add('active')
+        sliderImages[0].setAttribute('src', items[0].dataset.url)
+      } else {
+        items[indexVal + 1].classList.add('active')
+        sliderImages[0].setAttribute('src', items[indexVal + 1].dataset.url)
+      }
+      timeInterval = 0
+      hideShowItems()
+    }
+  }
 
-	hideShowItems = () => {
-		let activeClass = document.querySelectorAll('.item.active');
-		let indexVal = parseInt(activeClass[0].dataset.index) - 1;
-		if (indexVal >= end) { start++; end++; }
-		if (indexVal === 0) {
-			start = 0;
-			end = collection;
-		}
-		if (indexVal < start) {
-			start--; end--;
-		}
-		if (indexVal === this.state.items.length - 1) {
-			start = this.state.items.length - collection;
-			end = this.state.items.length;
-		}
-		for (let i = 0; i < this.state.items.length; i++) {
-			if (i < end && i >= start) {
-				this.state.items[i].classList.add("showitem")
-			}
-			else {
-				this.state.items[i].classList.remove("showitem")
-			}
-		}
-	}
+  const hoverFunction = (e) => {
+    if (e.target && e.target.matches('li.item')) {
+      sliderImages[0].setAttribute('src', e.target.dataset.url)
+      for (let i = 0; i < items.length; i++) {
+        items[i].classList.remove('active')
+      }
+      e.target.classList.add('active')
+      timeInterval = 0
+    }
+  }
 
-	render() {
-		const { dataSet, wrapClassName, option } = this.props;
-		const limit = option.charLimit || 120;
-		//console.log(this.props)
-		return (
-			<Fragment>
-				<div className={wrapClassName + " as-slider-container"}>
-					<div className="as-slider">
-						<div className="as-sliderImage">
-							<img src="" />
-						</div>
-						<ul className="slider-items">
-							{dataSet.map((item, index) =>
-								<li className="item" data-index={index + 1} data-url={item.imageUrl} key={index}>
-									<div className="item-data">
-										<h4><a href={item.url}>{item.title}</a></h4>
-										<p>{item.description.substring(0, limit)} {item.description.length > limit ? '...' : ''}</p>
-									</div>
-								</li>
-							)}
-						</ul>
-					</div>
-					<div className="as-slider-navlink">
-						<button className="link prevSlide">Prev</button>
-						<button className="link nextSlide">Next</button>
-					</div>
-				</div>
-			</Fragment>
-		)
-	}
+  const prevSlide = () => {
+    let activeClass = document.querySelectorAll(
+      `${wrapClassName ? '.' + wrapClassName : ''} .item.active`
+    )
+    if (activeClass.length > 0) {
+      let indexVal = parseInt(activeClass[0].dataset.index) - 1
+      items[indexVal].classList.remove('active')
+      if (indexVal === 0) {
+        items[items.length - 1].classList.add('active')
+        sliderImages[0].setAttribute('src', items[items.length - 1].dataset.url)
+      } else {
+        items[indexVal - 1].classList.add('active')
+        sliderImages[0].setAttribute('src', items[indexVal - 1].dataset.url)
+      }
+      timeInterval = 0
+      hideShowItems()
+    }
+  }
+
+  const hideShowItems = () => {
+    let activeClass = document.querySelectorAll(
+      `${wrapClassName ? '.' + wrapClassName : ''} .item.active`
+    )
+    if (activeClass.length > 0) {
+      let indexVal = parseInt(activeClass[0].dataset.index) - 1
+      if (indexVal >= end) {
+        start++
+        end++
+      }
+      if (indexVal === 0) {
+        start = 0
+        end = collection
+      }
+      if (indexVal < start) {
+        start--
+        end--
+      }
+      if (indexVal === items.length - 1) {
+        start = items.length - collection
+        end = items.length
+      }
+      for (let i = 0; i < items.length; i++) {
+        if (i < end && i >= start) {
+          items[i].classList.add('showitem')
+        } else {
+          items[i].classList.remove('showitem')
+        }
+      }
+    }
+  }
+
+  return (<Fragment>
+    <div className={wrapClassName + ' as-slider-container'}>
+      <div className='as-slider'>
+        <div className='as-sliderImage'>
+          <img src='' />
+        </div>
+        <ul className='slider-items'>
+          {dataSet.map((item, index) =>
+            <li className='item' data-index={index + 1} data-url={item.imageUrl} key={index}>
+              <div className='item-data'>
+                <h4><a href={item.url}>{item.title}</a></h4>
+                <p>{item.description.substring(0, charLimit)} {item.description.length > charLimit ? '...' : ''}</p>
+              </div>
+            </li>
+          )}
+        </ul>
+      </div>
+      <div className='as-slider-navlink'>
+        <button className='link prevSlide'>Prev</button>
+        <button className='link nextSlide'>Next</button>
+      </div>
+    </div>
+  </Fragment>
+  )
 }
+
+Slider.propTypes = {
+  collection: PropTypes.number,
+  start: PropTypes.number,
+  end: PropTypes.number,
+  dataSet: PropTypes.array.isRequired,
+  interval: PropTypes.number,
+  charLimit: PropTypes.number,
+  wrapClassName: PropTypes.string,
+  option: PropTypes.object
+}
+
+Slider.defaultProps = {
+  collection: 5,
+  start: null,
+  end: null,
+  interval: 5,
+  charLimit: 120,
+  wrapClassName: '',
+  option: {
+    responsive: {
+      lg: 6,
+      md: 5,
+      sm: 3
+    },
+    charLimit: 100
+  }
+}
+
+export default Slider

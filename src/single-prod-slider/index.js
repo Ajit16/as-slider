@@ -2,22 +2,22 @@ import React, {useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import './styles.css'
 
-const SliderSm = ({ collection, start, end, dataSet, interval, charLimit, wrapClassName }) => {
+const SingleProdSlider = ({ collection, start, end, dataSet, interval, charLimit, wrapClassName }) => {
   const [items, setItem] = useState([])
   const [dots, setDots] = useState([])
-  const [index, setIndexval] = useState(1)
+  // const [index, setIndexval] = useState(1)
   let timeInterval = 0
 
   useEffect(() => {
     if (dataSet.length > 0) {
-      let itemsVal = document.querySelectorAll(`${wrapClassName ? '.' + wrapClassName : ''}.as-slider-sm .sliderSm-items li`)
-      let dotsVal = document.querySelectorAll(`${wrapClassName ? '.' + wrapClassName : ''} .dots-position li`)
+      let itemsVal = document.querySelectorAll(`${wrapClassName ? '.' + wrapClassName : ''}.as-single-prod-slider .single-prod-container li`)
+      let dotsVal = document.querySelectorAll(`${wrapClassName ? '.' + wrapClassName : ''} .dots-points li`)
       setItem(itemsVal)
       setDots(dotsVal)
     }
   }, [dataSet])
 
-  const TimerInterval = (val) => {
+  const TimerInterval = () => {
     if (timeInterval === interval) {
       timeInterval = 0
       nextSlide()
@@ -27,8 +27,8 @@ const SliderSm = ({ collection, start, end, dataSet, interval, charLimit, wrapCl
   useEffect(() => {
     if (items.length > 0 && dots.length > 0) {
       window.addEventListener('resize', setNoOfSlide())
-      document.getElementsByClassName('nextSlideSm')[0].addEventListener('click', nextSlide)
-      document.getElementsByClassName('prevSlideSm')[0].addEventListener('click', prevSlide)
+      // document.getElementsByClassName('nextSlideSm')[0].addEventListener('click', nextSlide)
+      // document.getElementsByClassName('prevSlideSm')[0].addEventListener('click', prevSlide)
       for (let i = 0; i < dots.length; i++) {
         dots[i].addEventListener('click', ClickFunction)
       }
@@ -36,8 +36,8 @@ const SliderSm = ({ collection, start, end, dataSet, interval, charLimit, wrapCl
     }
     return () => {
       window.removeEventListener('resize', setNoOfSlide())
-      document.getElementsByClassName('nextSlideSm')[0].removeEventListener('click', nextSlide)
-      document.getElementsByClassName('prevSlideSm')[0].removeEventListener('click', prevSlide)
+      // document.getElementsByClassName('nextSlideSm')[0].removeEventListener('click', nextSlide)
+      // document.getElementsByClassName('prevSlideSm')[0].removeEventListener('click', prevSlide)
       for (let i = 0; i < dots.length; i++) {
         dots[i].removeEventListener('click', ClickFunction)
       }
@@ -60,7 +60,7 @@ const SliderSm = ({ collection, start, end, dataSet, interval, charLimit, wrapCl
 
   const nextSlide = () => {
     let activeClass = document.querySelectorAll(
-      `${wrapClassName ? '.' + wrapClassName : ''}.as-slider-sm .item.active`
+      `${wrapClassName ? '.' + wrapClassName : ''}.as-single-prod-slider .slider-item.active`
     )
     if (activeClass.length > 0) {
       let indexVal = parseInt(activeClass[0].dataset.index)
@@ -70,38 +70,38 @@ const SliderSm = ({ collection, start, end, dataSet, interval, charLimit, wrapCl
       if (indexVal === items.length - 1) {
         items[0].classList.add('active')
         dots[0].classList.add('active')
-        setIndexval(1)
+        // setIndexval(1)
       } else {
         items[indexVal + 1].classList.add('active')
         dots[indexVal + 1].classList.add('active')
-        setIndexval(indexVal + 2)
+        // setIndexval(indexVal + 2)
       }
       timeInterval = 0
       hideShowItems()
     }
   }
 
-  const prevSlide = () => {
-    let activeClass = document.querySelectorAll(
-      `${wrapClassName ? '.' + wrapClassName : ''}.as-slider-sm .item.active`
-    )
-    if (activeClass.length > 0) {
-      let indexVal = parseInt(activeClass[0].dataset.index)
-      items[indexVal].classList.remove('active')
-      dots[indexVal].classList.remove('active')
-      if (indexVal === 0) {
-        items[items.length - 1].classList.add('active')
-        dots[items.length - 1].classList.add('active')
-        setIndexval(items.length)
-      } else {
-        items[indexVal - 1].classList.add('active')
-        dots[indexVal - 1].classList.add('active')
-        setIndexval(indexVal)
-      }
-      timeInterval = 0
-      hideShowItems()
-    }
-  }
+  // const prevSlide = () => {
+  //   let activeClass = document.querySelectorAll(
+  //     `${wrapClassName ? '.' + wrapClassName : ''}.as-multi-slider .slider-item.active`
+  //   )
+  //   if (activeClass.length > 0) {
+  //     let indexVal = parseInt(activeClass[0].dataset.index)
+  //     items[indexVal].classList.remove('active')
+  //     dots[indexVal].classList.remove('active')
+  //     if (indexVal === 0) {
+  //       items[items.length - 1].classList.add('active')
+  //       dots[items.length - 1].classList.add('active')
+  //       setIndexval(items.length)
+  //     } else {
+  //       items[indexVal - 1].classList.add('active')
+  //       dots[indexVal - 1].classList.add('active')
+  //       setIndexval(indexVal)
+  //     }
+  //     timeInterval = 0
+  //     hideShowItems()
+  //   }
+  // }
 
   const ClickFunction = (e) => {
     if (e && e.target && e.target.matches('li')) {
@@ -113,13 +113,13 @@ const SliderSm = ({ collection, start, end, dataSet, interval, charLimit, wrapCl
       dots[e.target.dataset.index].classList.add('active')
       e.target.classList.add('active')
       timeInterval = 0
-      setIndexval(parseInt(e.target.dataset.index) + 1)
+      // setIndexval(parseInt(e.target.dataset.index) + 1)
     }
   }
 
   const hideShowItems = () => {
     let activeClass = document.querySelectorAll(
-      `${wrapClassName ? '.' + wrapClassName : ''}.as-slider-sm .item.active`
+      `${wrapClassName ? '.' + wrapClassName : ''}.as-single-prod-slider .slider-item.active`
     )
     if (activeClass.length > 0) {
       let indexVal = parseInt(activeClass[0].dataset.index)
@@ -150,42 +150,43 @@ const SliderSm = ({ collection, start, end, dataSet, interval, charLimit, wrapCl
   }
 
   return (
-    <div className={wrapClassName + ' as-slider-sm'}>
-      <ul className='sliderSm-items'>
-        {dataSet.map((item, index) => (
-          <li className='item' data-index={index} key={index}>
-            <img src={item.imageUrl} alt={'img' + index} />
-            <div className='item-data'>
-              <small>{item.date}</small>
-              <h4>
-                <a href={item.url}>{item.title}</a>
-              </h4>
+    <div className={wrapClassName + ' as-single-prod-slider'}>
+      <ul className='single-prod-container'>
+        {dataSet.map((item, indexNo) => (
+          <li className='slider-item' data-index={indexNo} key={indexNo} >
+            <div className='upper-section'>
+              <div className='price'>{item.offerPrice} <del>{item.realPrice}</del></div>
+              <div className='title'>{item.offer}</div>
+            </div>
+            <div className='slide-image'>
+              <a href={item.url}><img src={item.imageUrl} alt={'img' + indexNo} /></a>
+            </div>
+            <div className='description'>
               <p>
                 {item.description.substring(0, charLimit)}{' '}
-                {item.description.length > charLimit ? '...' : ''}
+                {item.description.length > charLimit ? <span>... <a href={item.url}>more</a></span> : ''}
               </p>
+              <span className='brand-logo'>
+                {/* <img src="Rattan_cowboy_hat.png" /> */}
+                <p>{item.tag}</p>
+              </span>
             </div>
+            <div className='slide-no'>{indexNo + 1}</div>
+            <div className='shape' />
           </li>
         ))}
       </ul>
 
-      <div className='dots-box'>
-        <ul className='dots-position'>
-          {dataSet.map((item, index) => (
-            <li data-index={index} key={index} />
-          ))}
-        </ul>
-      </div>
-      <div className='as-slider-navlink-sm'>
-        <small>{index + '/' + dataSet.length} </small>
-        <button className='link prevSlideSm'>&larr;</button>
-        <button className='link nextSlideSm'>&rarr;</button>
-      </div>
+      <ul className='dots-points'>
+        {dataSet.map((_item, index) => (
+          <li data-index={index} key={index} />
+        ))}
+      </ul>
     </div>
   )
 }
 
-SliderSm.propTypes = {
+SingleProdSlider.propTypes = {
   collection: PropTypes.number,
   start: PropTypes.number,
   end: PropTypes.number,
@@ -195,7 +196,7 @@ SliderSm.propTypes = {
   wrapClassName: PropTypes.string
 }
 
-SliderSm.defaultProps = {
+SingleProdSlider.defaultProps = {
   collection: 5,
   start: null,
   end: null,
@@ -204,4 +205,4 @@ SliderSm.defaultProps = {
   wrapClassName: ''
 }
 
-export default SliderSm
+export default SingleProdSlider
