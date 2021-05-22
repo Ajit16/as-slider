@@ -1,11 +1,11 @@
 {
   "name": "as-slider",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "As-Slider are providing you beautiful UI slider framework with easy to use and update custom UI style.",
   "author": "Ajit16",
   "keywords": [
     "as-slider",
-    "react as-slider",
+    "react-as-slider",
     "react slider"
   ],
   "license": "MIT",

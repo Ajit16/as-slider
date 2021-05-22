@@ -1,7 +1,6 @@
 import React from "react";
-
 import { Slider, SliderSm, SingleProdSlider } from "as-slider";
-//import 'as-slider/dist/index.css'
+import './index.css'
 
 const data = [
   {
@@ -26,7 +25,6 @@ const data = [
     url: "google.com",
   },
 ];
-
 
 const data1 = [
   {
@@ -83,7 +81,7 @@ const App = () => {
       <div>
         <div className="installDetail">
           <h2 align="center">As-Slider</h2>
-          <h4>Example 1</h4>
+          <h4>Example 1:</h4>
 
           <Slider
             dataSet={data}
@@ -96,7 +94,7 @@ const App = () => {
           <br />
           <div className="flex">
             <div>
-              <h4>Example 2</h4>
+              <h4>Example 2:</h4>
               <SliderSm
                 dataSet={data}
                 option={option}
@@ -105,7 +103,7 @@ const App = () => {
               />
             </div>
             <div>
-              <h4>Multi Slider Example</h4>
+              <h4>Example 3: Multi Slider Example</h4>
               <SingleProdSlider
                 dataSet={data1}
                 // option={option}
@@ -123,31 +121,45 @@ const App = () => {
           <h3>Steps to integrate</h3>
           <hr />
           <h4 style={{ marginBottom: 5 }}>Import the required module </h4>
-          <pre>import &#123; Slider, SliderSm, SingleProdSlider &#x7D; from 'as-slider';</pre>
+          <pre>import&#123; Slider, SliderSm, SingleProdSlider &#x7D; from 'as-slider';</pre>
           <h4 style={{ marginBottom: 5 }}> Render slider </h4>
           <pre>
-            &lt;Slider dataSet= &#123;data&#x7D; option= &#123;option&#x7D;
-            interval= &#123;4&#x7D; wrapClassName= &#123;"newClass"&#x7D; /&gt;;
+            &lt;Slider dataSet=&#123;data&#x7D; option=&#123;option&#x7D;
+            interval=&#123;4&#x7D; wrapClassName=&#123;"newClass"&#x7D; /&gt;
           </pre>
           <pre>
-            &lt;SliderSm dataSet= &#123;data&#x7D; interval= &#123;4&#x7D;
-            charLimit= &#123;100&#x7D; wrapClassName= &#123;"customClass"&#x7D;
-            /&gt;;
+            &lt;SliderSm dataSet=&#123;data&#x7D; interval=&#123;4&#x7D;
+            charLimit=&#123;100&#x7D; wrapClassName=&#123;"customClass"&#x7D;
+            /&gt;
           </pre>
           <pre>
-            &lt;SingleProdSlider dataSet= &#123;data&#x7D; interval= &#123;4&#x7D;
-            charLimit= &#123;100&#x7D; wrapClassName= &#123;"ItemCustomClass"&#x7D;
+            &lt;SingleProdSlider dataSet=&#123;data_singleProdSlider&#x7D; interval=&#123;4&#x7D;
+            charLimit=&#123;100&#x7D; wrapClassName=&#123;"ItemCustomClass"&#x7D;
             /&gt;;
           </pre>
           <h4 style={{ marginBottom: 5 }}>Data values</h4>
           <pre>
             const data=[
-            <br /> title:'title', description:'description', imageUrl:'image
-            path',url:'google.com' ,
-            <br /> title:'title', description:'description', imageUrl:'image
-            path'
+            <br />&#123; title:'title', description:'description', imageUrl:'image
+            path',url:'google.com'&#x7D;,
+            <br />&#123; title:'title', description:'description', imageUrl:'image
+            path'&#x7D;,
             <br /> ...
             <br />]
+            <br />
+            <br />
+            const data_singleProdSlider=[<br/>
+             &#123; <br />
+                title: "Fourth",<br />
+                offerPrice:'$2300',<br />
+                tag:'NIKE',<br />
+                offer:'NEW',<br />
+                description: "There are many ...",<br />
+                imageUrl: "image url",<br />
+                url: "url.come",<br/>
+                &#x7D;,
+              <br /> ...<br />
+            ]
           </pre>
           <h4 style={{ marginBottom: 5 }}>Option values</h4>
           <p>
@@ -155,8 +167,8 @@ const App = () => {
             the no of slide show on screen.
           </p>
           <pre>
-            const option = &#123;
-            <br /> responsive: &#123;
+            const option =&#123;
+            <br /> responsive:&#123;
             <br /> lg:6,
             <br /> md:5,
             <br /> sm:3
@@ -167,18 +179,24 @@ const App = () => {
           </pre>
           <h4 style={{ marginBottom: 5 }}>Example </h4>
           <pre>
-            import React, &#123;Component &#x7D; from 'react';
+            import React, &#123; Fragment &#x7D; from 'react';
             <br />
-            import &#123;Slider, SliderSm &#x7D; from 'as-slider';
+            import&#123;Slider, SliderSm &#x7D; from 'as-slider';
             <br />
-            class Example extends Component &#123;
+            const Example =()=&gt;&#123;
             <br />
-            render () &#123;
-            <br />
-            return (<br /> &#123;;Slider dataSet= &#123;data&#x7D; option=
-            &#123;option&#x7D; interval= &#123;4&#x7D; /&gt;
-            <br /> )<br /> &#x7D;
-            <br />
+            
+            &nbsp;return (
+              &lt;Fragment&gt;<br/>
+            &nbsp;&nbsp;&lt;Slider dataSet=&#123;data&#x7D; option=&#123;option&#x7D; interval=&#123;4&#x7D; /&gt; <br/>
+           &nbsp;&nbsp;or<br/>
+           &nbsp;&nbsp; &lt;SliderSm dataSet=&#123;data&#x7D; interval=&#123;4&#x7D;
+            charLimit=&#123;100&#x7D; wrapClassName=&#123;"customClass"&#x7D;
+            /&gt;<br/>
+           &nbsp;&nbsp;or<br/>
+           &nbsp;&nbsp;&lt;SingleProdSlider dataSet=&#123;data_singleProdSlider&#x7D; interval=&#123;4&#x7D;
+            charLimit=&#123;100&#x7D; wrapClassName=&#123;"ItemCustomClass"&#x7D;<br/>
+           &lt;/Fragment&gt;)<br/>
             &#x7D;
           </pre>
           <p> </p>
@@ -202,7 +220,7 @@ const App = () => {
                   <td rowSpan="3">
                     <strong>object</strong>
                     <br />
-                    exp = &#123; responsive: &#123; lg: 6, md: 5, sm: 3 &#x7D;
+                    exp =&#123; responsive:&#123; lg: 6, md: 5, sm: 3 &#x7D;
                     &#x7D;
                   </td>
                   <td>5</td>
@@ -243,7 +261,7 @@ const App = () => {
           <p> </p>
           <h3>Keywords</h3>
           <hr />
-          <pre>as-slider</pre>
+          <pre>as-slider, react-as-slider</pre>
         </div>
       </div>
 
